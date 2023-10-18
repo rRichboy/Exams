@@ -19,7 +19,7 @@ class Program
 
     static void Main()
     {
-        int[,] employeeData = new int[5, 2]
+        int[,] employeeData = 
         {
             {1, 2000},
             {2, 2200},
