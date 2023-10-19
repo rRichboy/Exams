@@ -38,6 +38,26 @@ class Program
         }
     }
 
+    static void Get_Employee_GetAllSalary(int[,] employeeData, int selectedEmployeeId)
+    {
+        for (int i = 0; i < employeeData.GetLength(0); i++)
+        {
+            int id = employeeData[i, 0];
+            if (id == selectedEmployeeId)
+            {
+                Console.WriteLine($"Зарплата сотрудника с ID {selectedEmployeeId} за 30 дней по дням:");
+                for (int day = 1; day <= 30; day++)
+                {
+                    int salary = employeeData[i, day];
+                    Console.WriteLine($"День {day}: {salary}");
+                }
+                return;
+            }
+        }
+        Console.WriteLine("Сотрудник с указанным ID не найден.");
+    }
+
+
     static void Main()
     {
         int numEmployees = 5;
@@ -62,10 +82,11 @@ class Program
         while (true)
         {
             Console.WriteLine(
-                "1. Вывести зарплату сотрудников за 30 дней.\n" +
+                "1. Вывести зарплату сотрудников за 30 дней по дням.\n" +
                 "2. Вывести зарплату всех сотрудников за 30 дней.\n" +
                 "3. Вывести зарплату для определенного ID и его общей зарплаты.\n" +
-                "4. Выход");
+                "4. Вывести зарплату сотрудника по ID за 30 дней по дням.\n" +
+                "5. Выход");
             Console.Write("Выберите: ");
 
             if (int.TryParse(Console.ReadLine(), out int choice))
@@ -121,12 +142,25 @@ class Program
                         }
                         break;
 
-                        case 4:
-                        return;
+                    case 4:
+                        Console.Write("Введите ID сотрудника: ");
+                        if (int.TryParse(Console.ReadLine(), out int selectedEmployeeId))
+                        {
+                            Get_Employee_GetAllSalary(employeeData, selectedEmployeeId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Некорректный ID сотрудника.");
+                        }
+                        break;
 
                     default:
                         Console.WriteLine("Некорректный выбор.");
                         break;
+
+                    case 5:
+                        return;
+                        
                 }
             }
             else
